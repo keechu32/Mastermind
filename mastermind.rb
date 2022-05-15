@@ -86,7 +86,11 @@ class Mastermind
         while @win == false && @turns < 13
             prompt_guess
             guess = @player_mode ? get_player_guesses : computer_guess
+           if guess==nil
+               puts "WHat the FLYING FUCK FOR FUCK'SAKEEEE "
+           else
             add_guess(guess)
+           end
             @win = true if gameboard.guesses[12-@turns].colours == gameboard.solution.colours
             @turns+=1 if @win == false
         end
@@ -100,9 +104,8 @@ class Mastermind
         @computer.guess(@gameboard.feedback, @turns)
     end
     def add_guess(guess)
-        index_of_gameboard = 12 - @turns
-        gameboard.guesses[index_of_gameboard] = ColourCode.new(guess[0], guess[1], guess[2], guess[3])
-        gameboard.refresh(index_of_gameboard)
+        gameboard.guesses[12 - @turns] = ColourCode.new(guess[0], guess[1], guess[2], guess[3])
+        gameboard.refresh(12 - @turns)
     end
     def lose
         puts @player_mode ? "\nYou lost the game dumbass, maybe this isnt for you" : "\nOopsie I let you win"
